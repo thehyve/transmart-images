@@ -42,12 +42,12 @@ def settings = new Properties()
 // the directory where the images and log files will be put
 def date = new Date().format('yyyy-MM-dd')
 File workDirectory = new File(input.outputDirectory, date)
-/*if (workDirectory.exists()) {
+if (workDirectory.exists()) {
     throw new IllegalStateException("The directory $workDirectory already exists! Aborting")
 }
 if (!workDirectory.mkdirs()) {
     throw new IOException("Could not create directory $workDirectory")
-}*/
+}
 
 def finalImageFile = new File(workDirectory, "${input.instanceId}.qcow2")
 
@@ -83,7 +83,7 @@ settingsFile.withOutputStream {
 /* Run buildImage.groovy */
 File buildImageLog = new File(workDirectory, 'buildImage.log')
 
-/*buildImageLog.withOutputStream { logStream ->
+buildImageLog.withOutputStream { logStream ->
     // Run buildImage.groovy
     def result = exec command: [ 'groovy', 'buildImage.groovy', settingsFile.path ],
             stdoutRedirect: logStream,
@@ -101,7 +101,7 @@ File buildImageLog = new File(workDirectory, 'buildImage.log')
     if (result.failed) {
         throw new RuntimeException("The buildImage script has failed. See $buildImageLog")
     }
-}*/
+}
 
 
 /*
@@ -109,10 +109,10 @@ File buildImageLog = new File(workDirectory, 'buildImage.log')
 
 def runningImageFile = new File(input.runningImageDirectory,
         "${input.instanceId}-${date}.qcow2")
-/*
+
 exec command: ['qemu-img', 'create', '-f', 'qcow2', '-b', settings.finalImage,
         runningImageFile ]
-*/
+
 /*
  * Retrieve and stop the old domain */
 
