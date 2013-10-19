@@ -55,7 +55,7 @@ _How do I run the image under VirtualBox?_
 VirtualBox does not support QCOW2 images. You can convert them with `qemu-img`.
 E.g.:
 
-    qemu-img convert -O vdi converted.vdi ts-master-ci.qcow2
+    qemu-img convert -O vdi ts-master-ci.qcow2 converted.vdi
 
   [transmart]: http://transmartfoundation.org/
   [ts-app]: https://github.com/thehyve/transmartApp
