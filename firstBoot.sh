@@ -24,7 +24,7 @@ TS_DATA=/opt/transmart-data
 TS_ETL=/opt/tranSMART-ETL
 DATA_INTEGRATION=/opt/data-integration
 WAR_FILE=/opt/transmart.war
-TABLESPACES_DIR=/var/lib/postgresql/tablespaces 
+TABLESPACES_DIR=/var/lib/postgresql/tablespaces
 POSTGRESQL_CONF=/etc/postgresql/9.3/main/postgresql.conf
 MEMORY_DATABASE=${MEMORY_DATABASE:-1500}
 MEMORY_TOMCAT=${MEMORY_TOMCAT:-3000} # + max 400 for permgen
@@ -101,6 +101,7 @@ wait %3 || { echo 'ERROR: Solr subprocess failed'; FAILED_ANY=1; }
 
 if [ $FAILED_ANY -ne 0 ]; then
     echo "ERROR: Some subshells failed; exiting prematurely"
+	shutdown -h now
     exit 1
 fi
 
