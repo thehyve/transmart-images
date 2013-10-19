@@ -180,8 +180,8 @@ workDirectory.parentFile.eachFile { dir ->
             || dir.name == date) {
         return
     }
-    dir.eachFileMatch ~/.+\.qcow2/ { file ->
-        if (!it.delete()) {
+    dir.eachFileMatch ~/.+\.qcow2/, { file ->
+        if (!file.delete()) {
             throw new IOException("Could not delete $file")
         } else {
             log "Deleted $file"
