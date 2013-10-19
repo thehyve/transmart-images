@@ -1,0 +1,50 @@
+#!/bin/bash
+
+LOGFILE=/var/log/ts-master-ci-cron.log
+SETTINGS=/tmp/ts-master-ci-nightly.properties
+exec 3>&1
+exec 4>&2
+exec &> $LOGFILE
+
+cat > $SETTINGS <<EOD
+dataRepository=git://github.com/thehyve/transmart-data.git
+dataBranch=master
+etlRepository=git://github.com/thehyve/tranSMART-ETL.git
+etlBranch=master
+
+instanceId=ts-master-ci
+domain=thehyve.net
+
+bamboo=https://ci.ctmmtrait.nl/
+tsAppKey=TM-TM
+
+outputDirectory=/home/dailyts/builds
+
+# MUST BE OUTSIDE outputDirectory
+runningImageDirectory=/home/dailyts/run_img
+preserveDomainXml=yes
+EOD
+
+chmod o+r $LOGFILE
+
+
+cd /home/dailyts/transmart-build-image
+sudo -u dailyts PATH=/home/dailyts/groovy/bin:$PATH \
+    /home/dailyts/groovy/bin/groovy nightlyBuild.groovy $SETTINGS
+
+if [ $? -ne 0 ]; then
+    cat >&4 <<EOD
+Creation of daily image ts-master-ci has failed!
+I included the log below.
+More information can be found at:
+http://dev2.thehyve.net/
+
+Sorry for ruining the beginning of your day :(
+----- settings file
+$(cat $SETTINGS)
+----- output of nightlyBuild.groovy
+$(cat $LOGFILE)
+EOD
+
+   exit 1
+fi

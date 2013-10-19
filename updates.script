@@ -1,0 +1,25 @@
+#!/bin/bash
+
+(
+exec 2>&1
+
+set -x
+
+# not ubuntu:users
+chown root:root /
+
+# requires linux 3.8 ?
+growpart /dev/vda 1
+resize2fs /dev/vda1
+mount -o remount /
+
+mkdir /mnt/aux
+mount -o defaults,ro /dev/vdb /mnt/aux
+
+tar -C /opt -xzf /mnt/aux/pdi-ce.tar.gz
+
+mkdir -p /opt/{transmart-data,tranSMART-ETL}
+tar -C /opt/transmart-data -xzf /mnt/aux/transmart-data.tar.gz --strip-components=1
+tar -C /opt/tranSMART-ETL -xzf /mnt/aux/tranSMART-ETL.tar.gz --strip-components=1
+
+) | tee /var/log/updates.script.log
