@@ -393,7 +393,7 @@ File fetchKey(String instanceId, String type, Boolean privateKey) {
 
 void writeEnvFile(settings, File target) {
     String res = settings.findAll { it.key ==~ /env_.+/ }.collect {
-        "${it.key.substring('env_'.size())}='${it.value}'".toString()
+        "export ${it.key.substring('env_'.size())}='${it.value}'".toString()
     }.join '\n'
 
     target << res
