@@ -78,7 +78,7 @@ make -C samples/postgres load_clinical_GSE8581 \
   load_expression_GSE8581 \
   load_analysis_GSE8581 \
   load_clinical_TCGAOV \
-  load_clinical_TCGAOV
+  load_acgh_TCGAOV
 ) &> /var/log/ETL.log &
 
 # Solr
