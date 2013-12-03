@@ -270,7 +270,6 @@ def firstRunCommand = [
     '-drive', "file=$settings.mainImageOverlay,if=virtio",
     '-drive', "file=$settings.auxiliaryImage,if=virtio",
     '-append', 'root=/dev/vda1 ro init=/usr/lib/cloud-init/uncloud-init ds=nocloud xupdate=vdb:mnt console=ttyS0',
-    '-serial', 'stdio',
     '-cpu', 'host',
     '-smp', '3',
     '-m', settings.memory,
@@ -278,7 +277,7 @@ def firstRunCommand = [
     '-net', 'user,hostfwd=tcp::5555-:22,hostfwd=tcp::1180-:80',
     '-fsdev', "local,security_model=none,id=fsdev0,path=$logsDirectory",
     '-device', 'virtio-9p-pci,id=fs0,fsdev=fsdev0,mount_tag=logsshare',
-    '-vnc', ':1',
+    '-nographic',
 ]
 
 if ('yes' != settings.buildFinalImage) {
