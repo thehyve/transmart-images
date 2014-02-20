@@ -124,9 +124,9 @@ php <<EOD
 <?php
 ${DOL}file = 'file://$TOMCAT_SERVER_XML';
 ${DOL}sxml = new SimpleXMLElement(${DOL}file, 0, true);
-${DOL}context = ${DOL}sxml->Service->Engine->Host->addChild('Context');
-${DOL}context->addAttribute('path', '/transmart/images/tempImages');
-${DOL}context->addAttribute('docBase', '/var/tmp/jobs/');
+${DOL}listener = ${DOL}sxml->addChild('Listener');
+${DOL}listener->addAttribute('className', 'org.apache.catalina.core.AprLifecycleListener');
+${DOL}listener->addAttribute('SSLEngine', 'on');
 if (${DOL}sxml->asXML(${DOL}file)) {
     echo "Written ${DOL}file\n";
 }
