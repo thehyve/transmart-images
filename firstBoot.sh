@@ -119,18 +119,41 @@ sudo -u $TOMCAT_USER ln -s $WAR_FILE $TOMCAT_WEBAPPS/transmart.war
 sed -i 's/^JAVA_OPTS=.*/JAVA_OPTS="-Djava.awt.headless=true -Xmx'$MEMORY_TOMCAT'm -XX:MaxPermSize=400m -XX:+UseConcMarkSweepGC"/' \
     /etc/default/$TOMCAT_SERVICE
 
+# enable native libraries (APR)
+# enables sendfile support
 DOL='$'
 php <<EOD
 <?php
 ${DOL}file = 'file://$TOMCAT_SERVER_XML';
-${DOL}sxml = new SimpleXMLElement(${DOL}file, 0, true);
-${DOL}listener = ${DOL}sxml->addChild('Listener');
-${DOL}listener->addAttribute('className', 'org.apache.catalina.core.AprLifecycleListener');
-${DOL}listener->addAttribute('SSLEngine', 'on');
-if (${DOL}sxml->asXML(${DOL}file)) {
+${DOL}doc = new DOMDocument();
+${DOL}doc->preserveWhiteSpace = false;
+${DOL}doc->formatOutput = true;
+if (!${DOL}doc->load(${DOL}file)) {
+    echo "Failed loading XML file\n";
+    exit(1);
+}
+
+${DOL}el = ${DOL}doc->createElement('Listener');
+
+${DOL}className = ${DOL}doc->createAttribute('className');
+${DOL}className->value = 'org.apache.catalina.core.AprLifecycleListener';
+${DOL}el->appendChild(${DOL}className);
+
+${DOL}sslEngine = ${DOL}doc->createAttribute('SSLEngine');
+${DOL}sslEngine->value = 'off';
+${DOL}el->appendChild(${DOL}sslEngine);
+
+${DOL}doc->documentElement->insertBefore(${DOL}el,
+        ${DOL}doc->documentElement->firstChild);
+
+if (${DOL}doc->save(${DOL}file)) {
     echo "Written ${DOL}file\n";
+} else {
+	echo "Failed to write ${DOL}file\n";
+	exit(1);
 }
 EOD
+
 mkdir /var/tmp/jobs
 chown $TOMCAT_USER:$TOMCAT_GROUP /var/tmp/jobs
 
