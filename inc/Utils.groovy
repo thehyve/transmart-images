@@ -1,3 +1,8 @@
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+import static groovy.io.FileType.FILES
+
 class Utils {
 
     /**
@@ -5,7 +10,9 @@ class Utils {
      * @param binding
      */
     static void importAll(binding) {
-        [ 'downloadFile', 'log', 'exec', 'ensureCleanDirectory' ].each { methodName ->
+        def methods = [ 'downloadFile', 'log', 'exec',
+                'ensureCleanDirectory', 'deleteOld' ]
+        methods.each { methodName ->
             binding."${methodName}" = this.&"${methodName}"
         }
     }
@@ -142,4 +149,36 @@ class Utils {
         builder.mkdir dir: dir
     }
 
+    static void deleteOld(File cache, Pattern pattern) {
+        def deleteAllButLatest = { Map<String, List<File>> map ->
+            map.values().each {
+                it.pop()
+                it.each { file ->
+                    if (!file.delete()) {
+                        System.err.println "Could not delete $file"
+                        System.exit 1
+                    }
+                }
+            }
+        }
+
+        def foundByKey
+        foundByKey = [:].withDefault {
+            foundByKey[it] = []
+        }
+        cache.traverse(type: FILES,
+                       nameFilter: pattern,
+                       sort: { a,b -> a.lastModified() <=> b.lastModified() },
+                       maxDepth: 0,
+        ) {
+            Matcher m = pattern.matcher(it.name)
+            if (m.matches()) {
+                foundByKey[m.group(1)] << it
+            }
+        }
+
+        deleteAllButLatest foundByKey
+    }
 }
+
+// vim: ts=4 sw=4 et tw=80

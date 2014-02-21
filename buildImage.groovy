@@ -28,6 +28,9 @@ settings = settings.withDefault { String key ->
 }
 
 cacheDir = new File('cache')
+deleteOld cacheDir, ~/transmart-(.+)-\d+\.war/
+deleteOld cacheDir, ~/thehyve-(.+)-[a-z0-9]{32}\.tar\.gz/
+
 def originalImage = downloadFile(new URL(settings.ubuntuImage), new File('.'))
 // for performance, we could uncompress the image:
 // qemu-img convert -O qcow2 $originalImage $uncompressImage
