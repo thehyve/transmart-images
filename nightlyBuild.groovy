@@ -8,8 +8,8 @@ import org.libvirt.Domain
 import org.libvirt.LibvirtException
 
 def fixedSettings = [
-        ubuntuImage:        'http://cloud-images.ubuntu.com/saucy/current/saucy-server-cloudimg-amd64-disk1.img',
-        kernel:             'http://cloud-images.ubuntu.com/saucy/current/unpacked/saucy-server-cloudimg-amd64-vmlinuz-generic',
+        ubuntuImage:        'http://cloud-images.ubuntu.com/trusty/current/trusty-server-cloudimg-arm64-disk1.img',
+        kernel:             'http://cloud-images.ubuntu.com/trusty/current/unpacked/trusty-server-cloudimg-arm64-vmlinuz-generic',
         imageSize:          '10G',
         kettleVersion:      '4.4.0',
         firstBootScript:    'firstBoot.sh',
