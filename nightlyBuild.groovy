@@ -15,7 +15,7 @@ def fixedSettings = [
         firstBootScript:    'firstBoot.sh',
         aptMirror:          'http://nl.archive.ubuntu.com/ubuntu/',
         extraSources_1:     'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg main;ACCC4CF8;postgresql.list',
-        extraSources_2:     'deb http://apt.thehyve.net/opal/ stable main;3375DA21;thehyve.list',
+        extraSources_2:     'deb http://apt.thehyve.net/internal/ trusty main;3375DA21;thehyve.list',
         packages:           'groovy,postgresql-9.3,make,rsync,libcairo-dev,php5-cli,php5-json,curl,openjdk-7-jdk,gfortran,g++,acpid,tomcat7,libtcnative-1,apache2,augeas-tools',
         password:           'ubuntu',
         buildFinalImage:    'yes',
