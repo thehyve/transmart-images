@@ -37,11 +37,11 @@ ufw allow 80/tcp
 cd $TS_DATA
 
 # preliminaries
-make -C env $TABLESPACES_DIR ../vars-ubuntu
+make -C env $TABLESPACES_DIR ../vars
 ln -s $TS_ETL env/tranSMART-ETL
 ln -s $DATA_INTEGRATION env/data-integration
-echo "export TSUSER_HOME=$TOMCAT_HOME/" >> vars-ubuntu
-source vars-ubuntu
+echo "export TSUSER_HOME=$TOMCAT_HOME/" >> vars
+source vars
 
 # install config
 make -C config install_Config.groovy install_DataSource.groovy
