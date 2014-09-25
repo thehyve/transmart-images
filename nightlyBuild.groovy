@@ -14,7 +14,7 @@ def fixedSettings = [
         kettleVersion:      '4.4.0',
         firstBootScript:    'firstBoot.sh',
         aptMirror:          'http://nl.archive.ubuntu.com/ubuntu/',
-#        extraSources_1:     'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg main;ACCC4CF8;postgresql.list',
+//        extraSources_1:     'deb http://apt.postgresql.org/pub/repos/apt/ sid-pgdg main;ACCC4CF8;postgresql.list',
         extraSources_1:     'deb http://apt.thehyve.net/internal/ trusty main;3375DA21;thehyve.list',
         packages:           'groovy,postgresql-9.3,make,rsync,libcairo-dev,libreadline-dev,php5-cli,php5-json,curl,openjdk-7-jdk,gfortran,g++,acpid,tomcat7,libtcnative-1,apache2,augeas-tools',
         password:           'ubuntu',
