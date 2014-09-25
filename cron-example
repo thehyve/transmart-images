@@ -17,6 +17,7 @@ domain=thehyve.net
 
 bamboo=https://ci.ctmmtrait.nl/
 tsAppKey=TM-TM
+tsAppPath=transmartApp-WAR/transmart.war
 
 outputDirectory=/home/dailyts/builds
 

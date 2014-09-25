@@ -151,7 +151,7 @@ class AuxiliaryImage {
     private void downloadTransmartWAR() {
         File cacheDestination = new File(cacheDir, "transmart-$tsAppKey-${tsAppBuild}.war")
         File destination = new File(opt, 'transmart.war')
-        URL url = new URL("$bambooURL/browse/$tsAppKey-$tsAppBuild/artifact/shared/transmartApp-WAR/transmart.war")
+        URL url = new URL("$bambooURL/browse/$tsAppKey-$tsAppBuild/artifact/shared/$tsAppPath")
         script.downloadFile url, null, cacheDestination
         copyFile cacheDestination, destination
     }

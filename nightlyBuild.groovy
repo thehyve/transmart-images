@@ -57,6 +57,7 @@ settings.tsETLCommit      = findHead input.etlRepository, input.etlBranch
 
 settings.tsAppKey         = input.tsAppKey
 settings.tsAppBuild       = findLatestBuildNumber(input.bamboo, input.tsAppKey)
+settings.tsAppPath        = input.tsAppPath
 settings.bambooURL        = input.bamboo
 
 settings.hostname         = settings.instanceId = input.instanceId
