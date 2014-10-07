@@ -17,8 +17,6 @@ purposes. The following software is used:
 * [tranSMART-ETL][ts-etl] – the actual code that loads the data; invoked by
   `transmart-data`.
 
-Only The Hyve's master branch of tranSMART is currently supported.
-
 Requirements include groovy, qemu, libvirt (daemon and development libraries)
 and KVM support.
 
