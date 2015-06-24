@@ -115,8 +115,8 @@ service $TOMCAT_SERVICE stop
 # WAR file
 sudo -u $TOMCAT_USER ln -s $WAR_FILE $TOMCAT_WEBAPPS/transmart.war
 
-# further tomcat configuration
-sed -i 's/^JAVA_OPTS=.*/JAVA_OPTS="-Djava.awt.headless=true -Xmx'$MEMORY_TOMCAT'm -XX:MaxPermSize=400m -XX:+UseConcMarkSweepGC"/' \
+
+sed -i 's/^JAVA_OPTS=.*/JAVA_OPTS="-Djava.awt.headless=true -Xmx'$MEMORY_TOMCAT'm -XX:MaxPermSize=400m -Djava.security.egd=file:///dev/urandom"/' \
     /etc/default/$TOMCAT_SERVICE
 
 # enable native libraries (APR)
