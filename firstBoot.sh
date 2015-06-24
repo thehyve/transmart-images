@@ -45,6 +45,7 @@ source vars
 
 # install config
 make -C config install_Config.groovy install_DataSource.groovy
+chown $TOMCAT_USER:$TOMCAT_GROUP "$TOMCAT_HOME"/.grails
 
 # first tune postgresql
 AUG_PGCONF=/files$POSTGRESQL_CONF
